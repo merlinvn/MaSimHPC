@@ -1,0 +1,13 @@
+before_script:
+  - sudo apt-get update -qq
+  - sudo apt-get install libboost-dev
+
+language: cpp
+sudo: required
+dist: trusty
+compiler:
+  - clang
+  - gcc
+os:
+  - linux
+script: cmake

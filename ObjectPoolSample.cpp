@@ -23,7 +23,7 @@ int main() {
             std::vector<std::shared_ptr<Person>> vPersons;
             for (int i = 0; i < numberOfPersonPerTimeStep; ++i) {
                 vPersons.push_back(Person::Acquire());
-                assert(vPersons.back()->getParasitePopulations()->mPopulations.size() ==5);
+                assert(vPersons.back()->getParasitePopulations().mPopulations.size() ==5);
             }
             vPersons.clear();
         }

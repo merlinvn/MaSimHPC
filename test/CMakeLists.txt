@@ -12,6 +12,7 @@ target_link_libraries(ObjectPoolSample MaSimCore)
 #add_executable(ObjectPoolSample src/Core/ObjectPool.h src/ObjectPoolSample.cpp src/Person.cpp src/ParasitePopulations.cpp src/SingleClonalParasitePopulation.cpp)
 #target_compile_features(ObjectPoolSample PRIVATE cxx_range_for)
 #
+
 add_executable(ObjectIndexerSample catch.h ObjectIndexerSample.cpp)
 target_compile_features(ObjectIndexerSample PRIVATE cxx_range_for)
-target_link_libraries(ObjectPoolSample MaSimCore)
+target_link_libraries(ObjectIndexerSample MaSimCore)

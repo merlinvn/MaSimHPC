@@ -2,9 +2,9 @@
 // Created by merlinvn@gmail.com on 31/12/16.
 //
 
-#include "../src/catch.h"
-#include "../src/Person.h"
-#include "../src/PersonIndexer.h"
+#include "catch.h"
+#include "Person.h"
+#include "PersonIndexer.h"
 
 TEST_CASE("Create person index from template", "[PersonIndex]")
 {

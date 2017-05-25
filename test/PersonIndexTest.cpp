@@ -6,87 +6,103 @@
 #include "../src/Person.h"
 #include "../src/PersonIndexer.h"
 
-TEST_CASE("Create person index from template", "[PersonIndex]") {
+TEST_CASE("Create person index from template", "[PersonIndex]")
+{
 
-    SECTION("Single index will have 2-dimensional vector") {
+    SECTION("Single index will have 2-dimensional vector")
+    {
         PersonIndexer<Person::AgeClass> pi;
-//
+        //
         REQUIRE(typeid(pi.mPersons).name() == typeid(std::vector<std::vector<std::shared_ptr<Person>>>).name());
     }
-    SECTION("Double index will have 3-dimensional vector") {
+    SECTION("Double index will have 3-dimensional vector")
+    {
         PersonIndexer<Person::AgeClass, Person::State> pi;
         REQUIRE(typeid(pi.mPersons).name() ==
                 typeid(std::vector<std::vector<std::vector<std::shared_ptr<Person>>>>).name());
     }
-
 }
 
-
-TEST_CASE("Create person index from template will initialize with number of tracking properties", "[PersonIndex]") {
-    SECTION("Single index will track 1 property") {
+TEST_CASE("Create person index from template will initialize with number of tracking properties", "[PersonIndex]")
+{
+    SECTION("Single index will track 1 property")
+    {
         PersonIndexer<Person::AgeClass> pi;
-//
+        //
         REQUIRE(pi.mTrackingProperties.size() == 1);
         REQUIRE(pi.mTrackingProperties[0] == Person::AgeClass);
     }
 
-    SECTION("Double index will track 2 properties") {
+    SECTION("Double index will track 2 properties")
+    {
         PersonIndexer<Person::Location, Person::AgeClass> pi;
-//
+        //
         REQUIRE(pi.mTrackingProperties.size() == 2);
         REQUIRE(pi.mTrackingProperties[0] == Person::Location);
         REQUIRE(pi.mTrackingProperties[1] == Person::AgeClass);
     }
 }
 
-TEST_CASE("Init person index", "[PersonIndex]") {
-    SECTION("Single index with 4 tracking classes") {
+TEST_CASE("Init person index", "[PersonIndex]")
+{
+    SECTION("Single index with 4 tracking classes")
+    {
         PersonIndexer<Person::AgeClass> pi;
         pi.init({4});
         REQUIRE(pi.mPersons.size() == 4);
     }
 
-    SECTION("Double index with nested of 4 and 3 tracking classes") {
+    SECTION("Double index with nested of 4 and 3 tracking classes")
+    {
         PersonIndexer<Person::Location, Person::AgeClass> pi;
         pi.init({4, 3});
         REQUIRE(pi.mPersons.size() == 4);
-        for (auto &item: pi.mPersons) {
+        for (auto &item : pi.mPersons)
+        {
             REQUIRE(item.size() == 3);
         }
     }
 }
 
-TEST_CASE("Re-Init person index clear content (return objects to pool)", "[PersonIndex]") {
+TEST_CASE("Re-Init person index clear content (return objects to pool)", "[PersonIndex]")
+{
 
-    SECTION("Single index with 4 tracking classes") {
+    SECTION("Single index with 4 tracking classes")
+    {
         PersonIndexer<Person::AgeClass> pi;
         pi.init({4});
         REQUIRE(pi.mPersons.size() == 4);
 
-        for (int i = 0; i < pi.mPersons.size(); ++i) {
+        for (int i = 0; i < pi.mPersons.size(); ++i)
+        {
             //add 100 persons to each age class
             auto &ac = pi.mPersons[i];
-            for (int j = 0; j < 100; ++j) {
+            for (int j = 0; j < 100; ++j)
+            {
                 auto p = Person::Acquire();
                 ac.push_back(p);
                 //   std::cout << "free list size: " << Person::objectPool.mFreeList.size() << std::endl;
             }
             REQUIRE(ac.size() == 100);
         }
-//        std::cout << "free list size: " << Person::objectPool.mFreeList.size() << std::endl;
+        //        std::cout << "free list size: " << Person::objectPool.mFreeList.size() << std::endl;
         REQUIRE(Person::objectPool.mFreeList.size() == 100000 - 400);
         pi.init({5});
         REQUIRE(Person::objectPool.mFreeList.size() == 100000);
     }
-    SECTION("Double indexes with nested 4 and 3 tracking classes") {
+    SECTION("Double indexes with nested 4 and 3 tracking classes")
+    {
         PersonIndexer<Person::Location, Person::AgeClass> pi;
 
         //init with 4 locations and 3 age classes
         pi.init({4, 3});
 
-        for (auto &location: pi.mPersons) {
-            for (auto &ac: location) {
-                for (int j = 0; j < 100; ++j) {
+        for (auto &location : pi.mPersons)
+        {
+            for (auto &ac : location)
+            {
+                for (int j = 0; j < 100; ++j)
+                {
                     auto p = Person::Acquire();
                     ac.push_back(p);
                 }
@@ -102,9 +118,10 @@ TEST_CASE("Re-Init person index clear content (return objects to pool)", "[Perso
     }
 }
 
-
-TEST_CASE("Add Object to Indexer will add to the back of the deepest vector") {
-    SECTION("Single index with 4 tracking classes") {
+TEST_CASE("Add Object to Indexer will add to the back of the deepest vector")
+{
+    SECTION("Single index with 4 tracking classes")
+    {
         REQUIRE(Person::objectPool.mFreeList.size() == 100000);
         PersonIndexer<Person::AgeClass> pi;
         pi.init({4});
@@ -119,8 +136,8 @@ TEST_CASE("Add Object to Indexer will add to the back of the deepest vector") {
         REQUIRE(Person::objectPool.mFreeList.size() == 100000 - 2);
     }
 
-
-    SECTION("Double indexes with nest of 4  and 3tracking classes") {
+    SECTION("Double indexes with nest of 4  and 3tracking classes")
+    {
         REQUIRE(Person::objectPool.mFreeList.size() == 100000);
         PersonIndexer<Person::Location, Person::AgeClass> pi;
         pi.init({4, 3});
@@ -136,8 +153,10 @@ TEST_CASE("Add Object to Indexer will add to the back of the deepest vector") {
     }
 }
 
-TEST_CASE("Add Person add to proper nested vector") {
-    SECTION("Single index with 4 tracking classes") {
+TEST_CASE("Add Person add to proper nested vector")
+{
+    SECTION("Single index with 4 tracking classes")
+    {
         REQUIRE(Person::objectPool.mFreeList.size() == 100000);
         PersonIndexer<Person::AgeClass> pi;
         pi.init({4});
@@ -151,7 +170,8 @@ TEST_CASE("Add Person add to proper nested vector") {
         REQUIRE(pi.mPersons[3].back() == p1);
     }
 
-    SECTION("Double index with 4 and 3 tracking classes") {
+    SECTION("Double index with 4 and 3 tracking classes")
+    {
         REQUIRE(Person::objectPool.mFreeList.size() == 100000);
         PersonIndexer<Person::AgeClass, Person::State> pi;
         pi.init({4, 3});
@@ -166,13 +186,13 @@ TEST_CASE("Add Person add to proper nested vector") {
         REQUIRE(pi.mPersons[3][Person::Exposed].back() == p1);
     }
 
-    SECTION("Multiple indexes ") {
+    SECTION("Multiple indexes ")
+    {
         REQUIRE(Person::objectPool.mFreeList.size() == 100000);
         PersonIndexer<Person::AgeClass> pi;
         pi.init({4});
         PersonIndexer<Person::AgeClass, Person::State> pi2;
         pi2.init({4, 3});
-
 
         REQUIRE(pi.mPersons.size() == 4);
 
@@ -190,8 +210,10 @@ TEST_CASE("Add Person add to proper nested vector") {
     }
 }
 
-TEST_CASE("Remove Person") {
-    SECTION("Single index with 4 tracking classes") {
+TEST_CASE("Remove Person")
+{
+    SECTION("Single index with 4 tracking classes")
+    {
         REQUIRE(Person::objectPool.mFreeList.size() == 100000);
         PersonIndexer<Person::AgeClass> pi;
         pi.init({4});
@@ -210,7 +232,8 @@ TEST_CASE("Remove Person") {
         REQUIRE(Person::objectPool.mFreeList.size() == 100000 - 1);
     }
 
-    SECTION("Double index with 4 and 3 tracking classes") {
+    SECTION("Double index with 4 and 3 tracking classes")
+    {
         REQUIRE(Person::objectPool.mFreeList.size() == 100000);
         PersonIndexer<Person::AgeClass, Person::State> pi;
         pi.init({4, 3});
@@ -227,13 +250,13 @@ TEST_CASE("Remove Person") {
         pi.remove(p1);
 
         REQUIRE(pi.mPersons[3][Person::Exposed].empty());
-//        REQUIRE(pi.mPersons[3][Person::Exposed].back() == p1);
+        //        REQUIRE(pi.mPersons[3][Person::Exposed].back() == p1);
 
         REQUIRE(Person::objectPool.mFreeList.size() == 100000 - 1);
     }
 
-
-    SECTION("Multiple objects Single index with 4 tracking classes") {
+    SECTION("Multiple objects Single index with 4 tracking classes")
+    {
         REQUIRE(Person::objectPool.mFreeList.size() == 100000);
         PersonIndexer<Person::AgeClass> pi;
         pi.init({4});
@@ -260,9 +283,10 @@ TEST_CASE("Remove Person") {
     }
 }
 
-
-TEST_CASE("Multiple Indexes") {
-    SECTION("3 indexes") {
+TEST_CASE("Multiple Indexes")
+{
+    SECTION("3 indexes")
+    {
         REQUIRE(Person::objectPool.mFreeList.size() == 100000);
         PersonIndexer<Person::AgeClass> pi1;
         pi1.init({4});
@@ -323,15 +347,14 @@ TEST_CASE("Multiple Indexes") {
         REQUIRE(p3->getPositionInDeepestNestedVector(1) == 2);
         REQUIRE(p3->getPositionInDeepestNestedVector(2) == 2);
 
-//        REQUIRE(p1->getPositionInDeepestNestedVector(0) == SIZE_MAX);
+        //        REQUIRE(p1->getPositionInDeepestNestedVector(0) == SIZE_MAX);
         REQUIRE(p1->getPositionInDeepestNestedVector(1) == 0);
         REQUIRE(p1->getPositionInDeepestNestedVector(2) == 0);
-
 
         REQUIRE(pi1.mPersons[3].size() == 2);
 
         pi1.remove(p2);
-//        REQUIRE(p2->getPositionInDeepestNestedVector(0) == SIZE_MAX);
+        //        REQUIRE(p2->getPositionInDeepestNestedVector(0) == SIZE_MAX);
         REQUIRE(p2->getPositionInDeepestNestedVector(1) == 1);
         REQUIRE(p2->getPositionInDeepestNestedVector(2) == 1);
 
@@ -344,12 +367,12 @@ TEST_CASE("Multiple Indexes") {
         pi2.remove(p1);
         REQUIRE(pi2.mPersons[3][Person::Exposed].size() == 2);
         REQUIRE(p3->getPositionInDeepestNestedVector(1) == 0);
-//        REQUIRE(p1->getPositionInDeepestNestedVector(1) == SIZE_MAX);
+        //        REQUIRE(p1->getPositionInDeepestNestedVector(1) == SIZE_MAX);
 
         pi3.remove(p2);
         REQUIRE(pi3.mPersons[0][3][Person::Exposed].size() == 2);
         REQUIRE(p3->getPositionInDeepestNestedVector(2) == 1);
-//        REQUIRE(p2->getPositionInDeepestNestedVector(2) == SIZE_MAX);
+        //        REQUIRE(p2->getPositionInDeepestNestedVector(2) == SIZE_MAX);
 
         pi1.mPersons.clear();
         pi2.mPersons.clear();

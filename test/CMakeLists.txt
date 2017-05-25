@@ -1,14 +1,7 @@
-cmake_minimum_required(VERSION 3.2)
-project(MaSimHpc)
-
-
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-
-ADD_SUBDIRECTORY(src)
-
-ADD_SUBDIRECTORY(test)
+include_directories(../src)
+add_executable(ObjectPoolSample ObjectPoolSample.cpp)
+target_compile_features(ObjectPoolSample PRIVATE cxx_range_for)
+target_link_libraries(ObjectPoolSample MaSimCore)
 
 #set(SOURCE_FILES src/main.cpp)
 #add_executable(ModernCpp ${SOURCE_FILES})

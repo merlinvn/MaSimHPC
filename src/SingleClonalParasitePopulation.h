@@ -6,7 +6,7 @@
 #define MODERNCPP_SINGLECLONALPARASITEPOPULATION_H
 
 
-#include "ObjectPool.h"
+#include "Core/ObjectPool.h"
 
 class SingleClonalParasitePopulation : IPoolable {
 

@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <assert.h>
-#include "Person.h"
+#include "../src/Person.h"
 
 int main(){
 

@@ -7,10 +7,9 @@
 
 #include <vector>
 #include <memory>
-#include "ObjectPool.h"
+#include "Core/ObjectPool.h"
+#include "SingleClonalParasitePopulation.h"
 
-
-class SingleClonalParasitePopulation;
 
 class ParasitePopulations : IPoolable {
     size_t id;

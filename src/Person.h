@@ -9,7 +9,7 @@
 #include <map>
 
 #include "ParasitePopulations.h"
-#include "ObjectPool.h"
+#include "Core/ObjectPool.h"
 #include "Indexable.h"
 
 #define MAXIMUM_ALLOWED_NUMBER_OF_INDEXERS 10
@@ -69,7 +69,6 @@ public:
     size_t getId() const;
 
     size_t getPropertyValue(Person::Property property);
-
 
     const ParasitePopulations &getParasitePopulations() const;
 

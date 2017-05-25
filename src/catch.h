@@ -7064,7 +7064,7 @@ namespace Catch {
 #ifdef __AFXDLL
 #include <AfxWin.h>
 #else
-#include <windows.h>
+#include <Windows.h>
 #endif
 
 namespace Catch {
@@ -7753,7 +7753,7 @@ namespace Catch
 #endif
 
 #ifdef CATCH_PLATFORM_WINDOWS
-#include <windows.h>
+#include <Windows.h>
 #else
 #include <sys/time.h>
 #endif

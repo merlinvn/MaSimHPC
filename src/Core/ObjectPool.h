@@ -5,8 +5,8 @@
 #ifndef MODERNCPP_OBJECTPOOL_H
 #define MODERNCPP_OBJECTPOOL_H
 
-//#include <utility>
-//#include <cstddef>
+#include <utility>
+#include <cstddef>
 #include <memory>
 #include <queue>
 #include <ostream>

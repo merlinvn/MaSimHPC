@@ -46,7 +46,7 @@ int main() {
             for (int i = 0; i < numberOfPersonPerTimeStep; ++i) {
                 auto p1 = std::make_shared<Person>();
 //                p1->init2();
-                assert(p1->getParasitePopulations()->mPopulations.size() == 5);
+                assert(p1->getParasitePopulations().mPopulations.size() == 5);
                 vPersons.push_back(p1);
             }
             vPersons.clear();

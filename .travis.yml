@@ -20,7 +20,7 @@ addons:
     packages:
     - cmake
     - libboost-dev
-    - libgsl-dev
+    - libgsl0-dev
     - libyaml-cpp-dev
 
 script:

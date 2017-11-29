@@ -20,6 +20,7 @@ addons:
     packages:
     - cmake
     - libboost-dev
+    - libgsl-dev
     - libyaml-cpp-dev
 
 script:
@@ -32,4 +33,4 @@ script:
   - gcc -v && g++ -v && cmake --version
   - cmake .
   - make
-  - ./bin/ObjectIndexerSample
+  - ./bin/ObjectPoolTest

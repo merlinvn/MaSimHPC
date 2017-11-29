@@ -1,8 +1,9 @@
 language: cpp
 sudo: required
 dist: trusty
-compiler:
-  - clang
+compiler: g++
+install: export CXX="g++-6"
+
 os:
   - linux
 
@@ -18,6 +19,7 @@ os:
 addons:
   apt:
     packages:
+    - g++-6
     - cmake
     - libboost-dev
     - libgsl0-dev

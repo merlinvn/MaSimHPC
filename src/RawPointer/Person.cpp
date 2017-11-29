@@ -4,9 +4,11 @@
 
 #include <iostream>
 #include "Person.h"
-
+#include <memory>
+using namespace RawPointer;
 size_t Person::ID = 0;
-ObjectPool<Person> Person::objectPool(100000);
+ObjectPoolRawPointer<Person> Person::objectPool(100000);
+
 std::vector<size_t(*)(Person *)> Person::propertiesMap{
         [](Person *p) -> size_t { return p->getId(); },
         [](Person *p) -> size_t { return p->getAge(); },
@@ -24,10 +26,6 @@ Person::Person() : id{Person::ID++}, parasitePopulations{std::make_unique<Parasi
 //    std::cout << "Person with id(" << id << ") created" << std::endl;
 }
 
-const ParasitePopulations &Person::getParasitePopulations() const {
-    return *parasitePopulations;
-}
-
 size_t Person::getAge() const {
     return age;
 }
@@ -40,8 +38,8 @@ Person::~Person() {
 //    std::cout << "Person with id(" << id << ") destructor" << std::endl;
 }
 
-void Person::init() {
-//    parasitePopulations->init();
+void Person::init() {	
+	parasitePopulations->init();
     setLocation(0);
     setAge(0);
     setAgeClass(0);
@@ -52,8 +50,13 @@ void Person::clean() {
     parasitePopulations->clean();
 }
 
-ObjectPool<Person>::Object Person::Acquire() {
-    return objectPool.acquireObject();
+
+ObjectPoolRawPointer<Person>::Object Person::Acquire() {
+	return objectPool.acquireObject();
+}
+
+void Person::Free(ObjectPoolRawPointer<Person>::Object o) {
+	return objectPool.returnObject(o);
 }
 
 //void Person::Release(ObjectPool<Person>::Object &object) {

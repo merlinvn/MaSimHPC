@@ -5,9 +5,11 @@
 #ifndef MODERNCPP_SINGLEARRAYPERSONINDEX_H
 #define MODERNCPP_SINGLEARRAYPERSONINDEX_H
 
-#include "IObjectIndexer.h"
-#include "Person.h"
+#include "Core/IObjectIndexer.h"
+#include "SmartPointer/Person.h"
 #include <iostream>
+
+using namespace SmartPointer;
 
 template<Person::Property ... Properties>
 class PersonIndexer : IObjectIndexer<std::shared_ptr<Person>, Person::Property> {

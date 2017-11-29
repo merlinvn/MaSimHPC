@@ -5,6 +5,7 @@
 #include <iostream>
 #include "ParasitePopulations.h"
 #include "SingleClonalParasitePopulation.h"
+using namespace RawPointer;
 
 size_t ParasitePopulations::ID = 0;
 
@@ -16,22 +17,19 @@ ParasitePopulations::ParasitePopulations(): id{ID++}, mPopulations{} {
 
 ParasitePopulations::~ParasitePopulations() {
 //    std::cout << "ParasitePopulations Destructor" << std::endl;
-
+	clean();
 }
 
 void ParasitePopulations::init() {
-    for (int i = 0; i < 5; ++i) {
-        mPopulations.push_back(SingleClonalParasitePopulation::Acquire());
-    }
+ 
 }
 
 void ParasitePopulations::clean() {
+	for (int i = 0; i < mPopulations.size(); i++) {
+		SingleClonalParasitePopulation::Free(mPopulations[i]);
+	}
+
     mPopulations.clear();
 }
 
-//void ParasitePopulations::init2() {
-//    for (int i = 0; i < 5; ++i) {
-//        mPopulations.push_back(std::make_shared<SingleClonalParasitePopulation>());
-//    }
-//}
 

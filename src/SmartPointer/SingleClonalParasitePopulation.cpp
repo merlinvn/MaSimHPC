@@ -4,10 +4,12 @@
 
 #include <iostream>
 #include "SingleClonalParasitePopulation.h"
+using namespace SmartPointer;
+ObjectPoolSmartPointer<SingleClonalParasitePopulation> SingleClonalParasitePopulation::objectPool(100000);
 
-ObjectPool<SingleClonalParasitePopulation> SingleClonalParasitePopulation::objectPool(1000);
+size_t SingleClonalParasitePopulation::ID = 0;
 
-SingleClonalParasitePopulation::SingleClonalParasitePopulation() {
+SingleClonalParasitePopulation::SingleClonalParasitePopulation() : id{ ID++ } {
 //    std::cout << "SCPP created" << std::endl;
 }
 
@@ -15,7 +17,7 @@ SingleClonalParasitePopulation::~SingleClonalParasitePopulation() {
 //    std::cout << "SCPP destroyed" << std::endl;
 }
 
-ObjectPool<SingleClonalParasitePopulation>::Object SingleClonalParasitePopulation::Acquire() {
+ObjectPoolSmartPointer<SingleClonalParasitePopulation>::Object SingleClonalParasitePopulation::Acquire() {
     return objectPool.acquireObject();
 }
 

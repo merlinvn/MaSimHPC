@@ -3,7 +3,7 @@
 //
 
 #include "catch.h"
-#include "Person.h"
+#include "SmartPointer/Person.h"
 #include "PersonIndexer.h"
 
 TEST_CASE("Create person index from template", "[PersonIndex]")

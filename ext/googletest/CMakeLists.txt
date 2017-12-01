@@ -6,7 +6,7 @@ set(GTEST_FORCE_SHARED_CRT ON)
 set(GTEST_DISABLE_PTHREADS OFF)
 
 if(MINGW)
-    set(GTEST_DISABLE_PTHREADS ON)
+#    set(GTEST_DISABLE_PTHREADS ON)
 endif()
 
 ExternalProject_Add(googletest

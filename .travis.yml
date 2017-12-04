@@ -35,6 +35,6 @@ deploy:
   skip_cleanup: true
   api_key:
     secure: JyM4cr2EDMyZ/EcOYU8aJButvlphEdxERfom1MwA5e3Ysg7xlW3sCaUgFaoZ0WYjNVgaHg/1QiW7EgSmN7phbnLO+P7m09mHIIGUhRf38fkHFbRmvf5XsDQHcFtsIxszJnYI8/0ZfJxwVtPI1A27Q1y5nFTk3Yfri2tudEMnddj7D+IrPHbrW1z9MlHuDp6iCpf9WMfQ3Nblzk29o1vqiVv2ibYLA+Y/uVc1X5ljHZTCHoGyIGPEZvtwk3vCFa+9ynYaM885AnLFfQaBX/JA1eB1TE9AqQOW01NwRimvI5U5b5yrDFUPcVeDlGvlCa4siHBCJdWhCbUHXlN9gwuFp1yNb5SRQSVp79JPahjMmBnYrSl2R9F8Hvs9XG/08TU8Qd1fUWxp7hL7XFBp2hIFezLqIdpLQ46Imt0mnhAuuq6/jULF4v5ZGKpDRToXC2Hzwa0BwsiYKH/Y+Bx1hsZa/1hnLe4SWfpusnmF60Ae/+wEztg2GvuBpKw7TL4rVL/b90B8l+yCYQ1LYsE94IuxpRmwDKCP0iAhx0wq4UrxkVrtZnMnS91x2s85RwwSW8IoUwQU+ZgNCQqwH6HFJbbaLoqc89MbT8q9Y+2uXsMZXCchLCazGElbKMHfedOaXg7aOPbZ5OdF+U8IxrHnFMbUNaRT7Au8v4tDUj6OnAwk7vU=
-  file: build/bin/ObjectPoolTest
+  file:  /home/travis/build/merlinvn/MaSimHPC/build/bin/ObjectPoolTest
   on:
     repo: merlinvn/MaSimHPC

@@ -38,3 +38,4 @@ deploy:
   file:  /home/travis/build/merlinvn/MaSimHPC/build/bin/ObjectPoolTest
   on:
     repo: merlinvn/MaSimHPC
+

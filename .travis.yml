@@ -38,4 +38,3 @@ deploy:
   file: build/bin/ObjectPoolTest
   on:
     repo: merlinvn/MaSimHPC
-    tags: true

@@ -1,9 +1,5 @@
 language: cpp
 
-os:
-  - linux
-  - osx
-  
 matrix:
   include:
     - os: linux
@@ -23,14 +19,12 @@ matrix:
       env:
         - MATRIX_EVAL = "CC=gcc-6 && CXX=g++-6"
     - os: osx
-      osx_image: xcode8
+      osx_image: xcode9.1
       env:
         - MATRIX_EVAL=" brew update && brew install gcc6 && CC=gcc-6 && CXX=g++-6 && brew install gsl && brew install boost && brew install yaml-cpp"
 
 before_install:
-  - eval "${MATRIX_EVAL}"
-  
-      
+  - eval "${MATRIX_EVAL}"     
       
 script:
   # # Check versions of gcc, g++ and cmake

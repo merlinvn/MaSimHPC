@@ -1,39 +1,38 @@
 language: cpp
-sudo: required
-dist: trusty
-compiler: gcc
 
 os:
   - linux
+  - osx
+  
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      sudo: required
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - gcc-6
+            - g++-6
+            - cmake
+            - libboost-dev
+            - libgsl0-dev
+            - libyaml-cpp-dev
+      env:
+        - MATRIX_EVAL = "CC=gcc-6 && CXX=g++-6"
+    - os: osx
+      osx_image: xcode8
+      env:
+        - MATRIX_EVAL=" brew update && brew install gcc6 && CC=gcc-6 && CXX=g++-6 && brew install gsl && brew install boost && brew install yaml-cpp"
 
-# addons:
-#   apt:
-#     sources:
-#       - ubuntu-toolchain-r-test
-#     packages:
-#       - gcc-6
-#       - g++-6
-#       - cmake
-#       - libboost-dev
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - gcc-6
-      - g++-6
-      - cmake
-      - libboost-dev
-      - libgsl0-dev
-      - libyaml-cpp-dev
-
+before_install:
+  - eval "${MATRIX_EVAL}"
+  
+      
+      
 script:
-  # Link gcc-6 and g++-6 to their standard commands
-  - sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
-  - sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
-  # # Export CC and CXX to tell cmake which compiler to use
-  - export CC=/usr/bin/gcc-6
-  - export CXX=/usr/bin/g++-6
   # # Check versions of gcc, g++ and cmake
   - gcc -v && g++ -v && cmake --version
   - mkdir build && cd build

@@ -15,21 +15,32 @@ matrix:
         - libboost-dev
         - libgsl0-dev
         - libyaml-cpp-dev
+        - lcov
     env:
     - MATRIX_EVAL = "CC=gcc-6 && CXX=g++-6"
   - os: osx
     osx_image: xcode9.1
     env:
-    - MATRIX_EVAL=" brew update && brew install gsl && brew install boost && brew
-      install yaml-cpp"
+    - MATRIX_EVAL=" brew update && brew install gsl && brew install boost && brew install yaml-cpp && brew install lcov"
 before_install:
 - eval "${MATRIX_EVAL}"
 script:
 - gcc -v && g++ -v && cmake --version
 - mkdir build && cd build
-- cmake ..
-- make
-- "./bin/ObjectPoolTest"
+- cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS=ON ..
+- make -j8
+- ctest
+
+after_success:
+    # Creating report
+  - cd ${TRAVIS_BUILD_DIR}
+  - lcov --directory . --capture --output-file coverage.info # capture coverage info
+  - lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter out system
+  - lcov --list coverage.info #debug info
+  # Uploading report to CodeCov
+  - bash <(curl -s https://codecov.io/bash) -t 1b45c6af-e328-4d08-b3cd-7838af6c09bb || echo "Codecov did not collect coverage reports"
+
+
 deploy:
   provider: releases
   skip_cleanup: true
@@ -38,4 +49,5 @@ deploy:
   file:  /home/travis/build/merlinvn/MaSimHPC/build/bin/ObjectPoolTest
   on:
     repo: merlinvn/MaSimHPC
+    tags: on
 

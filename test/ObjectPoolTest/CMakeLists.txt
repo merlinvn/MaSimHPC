@@ -24,3 +24,5 @@ target_link_libraries(ObjectPoolTest MaSimCore
         ${GTEST_LIBS_DIR}/libgtest.a
         ${GTEST_LIBS_DIR}/libgtest_main.a
         ${CMAKE_THREAD_LIBS_INIT})
+
+add_test(UnitTest ObjectPoolTest)

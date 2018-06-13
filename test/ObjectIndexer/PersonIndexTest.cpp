@@ -2,7 +2,7 @@
 // Created by merlinvn@gmail.com on 31/12/16.
 //
 
-#include "catch.h"
+#include "../catch.h"
 #include "SmartPointer/Person.h"
 #include "PersonIndexer.h"
 

@@ -1,3 +1,4 @@
+
 include_directories(../../src)
 add_executable(ObjectPoolSmartPointer ObjectPoolSmartPointerTest.cpp)
 target_compile_features(ObjectPoolSmartPointer PRIVATE cxx_range_for)

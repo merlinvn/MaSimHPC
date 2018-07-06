@@ -1,3 +1,5 @@
 .vs
 .idea
+node_modules
 cmake-*
+bin

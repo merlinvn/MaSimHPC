@@ -18,12 +18,11 @@ target_link_libraries(NonObjectPool MaSimCore)
 include_directories(${GTEST_INCLUDE_DIRS})
 find_package(Threads)
 include_directories(../../src)
-add_executable(ObjectPoolTest ObjectPoolTest.cpp)
-add_dependencies(ObjectPoolTest googletest MaSimCore)
+add_executable(ObjectPoolTest ObjectPoolTest.cpp )
+
+add_dependencies(ObjectPoolTest MaSimCore)
+
+target_link_libraries(ObjectPoolTest MaSimCore)
 target_compile_features(ObjectPoolTest PRIVATE cxx_range_for)
-target_link_libraries(ObjectPoolTest MaSimCore
-        ${GTEST_LIBS_DIR}/libgtest.a
-        ${GTEST_LIBS_DIR}/libgtest_main.a
-        ${CMAKE_THREAD_LIBS_INIT})
 
 add_test(UnitTest  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/ObjectPoolTest)

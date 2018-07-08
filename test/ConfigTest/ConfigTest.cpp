@@ -18,5 +18,20 @@ TEST_CASE("Config", "[Core]") {
 		REQUIRE(5000 == c.total_time());
 	}
 
+	SECTION("Config can read from file") {
+		Config c;
+		c.read_from_file("input.yml");
+
+		REQUIRE(10000== c.total_time());
+	}
+
+	SECTION("If file is not exist config item read default value") {
+		Config c;
+		c.read_from_file("input1.yml");
+
+		REQUIRE(1000 == c.total_time());
+		REQUIRE(10 == c.number_of_location());
+	}
+
 
 }

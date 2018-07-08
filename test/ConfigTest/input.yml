@@ -1,0 +1,7 @@
+# starting time point of the simulation (in yyyy/m/d format) 
+# which is day 0 in the simulation
+# including the burn-in period which we normally set to 4000# days;
+starting_date: 1990/1/1
+total_time: 10000
+
+number_of_location : 100

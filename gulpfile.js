@@ -11,7 +11,8 @@ gulp.task("wd", function () {
 });
 
 gulp.task("test", function () {
-    spawn("bin/ConfigTest.exe", {
+    spawn("ConfigTest.exe", {
+        cwd: "bin",
         stdio: "inherit" // <== IMPORTANT: use this option to inherit the parent's environment
     });
 });
